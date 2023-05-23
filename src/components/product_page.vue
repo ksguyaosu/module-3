@@ -49,7 +49,7 @@
         ></span>
       </div>
     </div>
-    <h1>{{ product_data.name }}</h1>
+    <h1 v-on:click="giveInfo">{{ product_data.name }}</h1>
     <div class="rating-mini">
       <span class="active"></span>
     </div>
@@ -69,6 +69,11 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  methods: {
+    giveInfo() {
+      console.log(this.product_data, 444);
     },
   },
 };

@@ -9,14 +9,19 @@
     <div class="bestsellers">
       <h1>Лучшие новинки</h1>
       <div class="selectors">
-        <button class="select_btn">Мебель</button>
-        <button class="select_btn">Свет</button>
-        <button class="select_btn">Декор</button>
+        <button class="select_btn" v-on:click="filterByFurniture">
+          Мебель
+        </button>
+        <button class="select_btn" v-on:click="filterByLight">Свет</button>
+        <button class="select_btn" v-on:click="filterByDecor">Декор</button>
+        <button class="select_btn" v-on:click="filterByAll">
+          Все категории
+        </button>
       </div>
     </div>
     <div class="product">
       <product_page
-        v-for="product in products"
+        v-for="product in filteredProducts"
         :key="product.name"
         :product_data="product"
       />
@@ -113,8 +118,88 @@ export default {
           weight: 1.9,
           image: "8.png",
         },
+        {
+          name: "Стул",
+          price: 3900,
+          discountPrice: 3500,
+          category: "мебель",
+          parameters: "600x1200x600",
+          weight: 1.5,
+          image: "9.png",
+        },
+        {
+          name: "Стул",
+          price: 4500,
+          category: "мебель",
+          parameters: "600x1200x600",
+          weight: 2.5,
+          image: "10.png",
+        },
+        {
+          name: "Диван серый",
+          price: 20000,
+          category: "мебель",
+          parameters: "1200x1000x800",
+          weight: 8.5,
+          image: "11.png",
+        },
+        {
+          name: "Диван желтый",
+          price: 34000,
+          discountPrice: 30500,
+          category: "мебель",
+          parameters: "2000x1000x900",
+          weight: 10.5,
+          image: "12.png",
+        },
+        {
+          name: "Кресло синее",
+          price: 7000,
+          category: "мебель",
+          parameters: "800x1000x8600",
+          weight: 3.5,
+          image: "13.png",
+        },
+        {
+          name: "Кресло зеленое",
+          price: 8000,
+          category: "мебель",
+          parameters: "800x1000x800",
+          weight: 3.0,
+          image: "14.png",
+        },
       ],
+      sortedProducts: [],
     };
+  },
+  computed: {
+    filteredProducts() {
+      if (this.sortedProducts.length) {
+        return this.sortedProducts;
+      } else {
+        return this.products;
+      }
+    },
+  },
+  methods: {
+    filterByFurniture() {
+      this.sortedProducts = this.products.filter(function (e) {
+        return e.category === "мебель";
+      });
+    },
+    filterByLight() {
+      this.sortedProducts = this.products.filter(function (e) {
+        return e.category === "свет";
+      });
+    },
+    filterByDecor() {
+      this.sortedProducts = this.products.filter(function (e) {
+        return e.category === "декор";
+      });
+    },
+    filterByAll() {
+      this.sortedProducts = this.products;
+    },
   },
 };
 </script>
